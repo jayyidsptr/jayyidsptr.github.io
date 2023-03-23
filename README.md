@@ -1,4 +1,5 @@
-# Mini Portfolio ⚡️ (https://github.com/jayyidsptr/jayyidsptr.github.io/blob/master/LICENSE.md) ![GitHub stars](https://img.shields.io/github/stars/jayyidsptr/jayyidsptr.github.io) ![GitHub forks](https://img.shields.io/github/forks/cobiwave/simplefolio)
+# Mini Portfolio ⚡️
+![GitHub stars] (https://img.shields.io/github/stars/jayyidsptr/jayyidsptr.github.io) ![GitHub forks] (https://img.shields.io/github/forks/jayyidsptr/jayyidsptr.github.io)
 
 ## A minimal portfolio template for Developers!
 
