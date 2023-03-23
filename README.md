@@ -1,12 +1,4 @@
 # Mini Portfolio ⚡️
-![GitHub stars] (https://img.shields.io/github/stars/jayyidsptr/jayyidsptr.github.io) ![GitHub forks] (https://img.shields.io/github/forks/jayyidsptr/jayyidsptr.github.io)
-
-## A minimal portfolio template for Developers!
-
-<h2 align="center">
-  <img src="https://github.com/cobiwave/gatsby-simplefolio/blob/master/examples/example.gif" alt="Mini-Portfolio" width="600px" />
-  <br>
-</h2>
 
 ## Features
 
