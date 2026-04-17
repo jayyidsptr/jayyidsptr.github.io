@@ -1,4 +1,4 @@
-# Putra Saputra | Professional Portfolio
+# Jayyid Saputra | Professional Portfolio
 
 [![GitHub Stars](https://img.shields.io/github/stars/jayyidsptr/jayyidsptr.github.io?style=flat-square)](https://github.com/jayyidsptr/jayyidsptr.github.io/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
