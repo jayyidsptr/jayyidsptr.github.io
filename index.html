@@ -1,357 +1,897 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="id" class="cursor-none">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayyid Saputra | Full Stack Developer & Mentor</title>
 
-    <!--=============== FAVICON ===============-->
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <!-- FAVICON (Added) -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23030303%22/><text x=%2250%22 y=%2270%22 font-family=%22sans-serif%22 font-size=%2250%22 font-weight=%22900%22 fill=%22white%22 text-anchor=%22middle%22>JS</text><circle cx=%2282%22 cy=%2222%22 r=%2210%22 fill=%22%233b82f6%22/></svg>"
+        type="image/svg+xml">
 
-    <!--=============== REMIX ICONS ===============-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- PRECONNECT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.fontshare.com">
 
-    <!--=============== CSS ===============-->
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <!-- Anime.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 
-    <title>Portfolio - Jayyid Saputra</title>
+    <!-- FONTS & STYLES -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="assets/css/themes.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/components.css">
 </head>
 
-<body>
-    <!--=============== HEADER ===============-->
-    <header class="profile container">
-        <!-- Theme button -->
-        <i class="ri-moon-line change-theme" id="theme-button"></i>
+<body class="min-h-screen flex flex-col relative selection:bg-blue-500 selection:text-white" data-theme="dark">
 
-        <div class="profile__container grid">
-            <div class="profile__data">
-                <div class="profile__border">
-                    <div class="profile__perfil">
-                        <!-- Insert your image, according to the example size of the portfolio -->
-                        <img src="assets/img/fotopp.png" alt="">
-                    </div>
+    <!-- Scroll Progress -->
+    <div id="scroll-progress-bar"></div>
+
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Back To Top -->
+    <button id="back-to-top" class="hover-trigger" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i data-lucide="arrow-up" class="w-4 h-4 text-muted"></i>
+    </button>
+
+    <!-- 3D Background Canvas -->
+    <div id="canvas-container"></div>
+
+    <!-- Cursor Trail Canvas -->
+    <canvas id="cursor-trail-canvas"></canvas>
+
+    <!-- Theme Transition Overlay -->
+    <div class="theme-transition-overlay"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Background Ambient Lights -->
+    <div
+        class="ambient-light fixed top-0 right-0 w-[800px] h-[800px] glow-blue opacity-30 -translate-y-1/4 translate-x-1/4 animate-float-slow">
+    </div>
+    <div
+        class="ambient-light fixed bottom-0 left-0 w-[600px] h-[600px] glow-cyan opacity-20 translate-y-1/4 -translate-x-1/4 animate-float-slower">
+    </div>
+    <div
+        class="ambient-light fixed top-1/2 left-1/2 w-[500px] h-[500px] glow-purple opacity-15 -translate-x-1/2 -translate-y-1/2">
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 backdrop-blur-md nav-bg-custom">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <a href="#about" class="logo-wrapper hover-trigger group relative">
+                <span class="logo-js">JS</span>
+                <div class="logo-dot-glow animate-pulse"></div>
+            </a>
+
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-8 text-sm text-muted font-medium">
+                    <a href="#about" class="hover:text-blue-400 transition-colors hover-trigger"
+                        data-i18n="nav_about">Tentang Saya</a>
+                    <a href="#skills" class="hover:text-blue-400 transition-colors hover-trigger"
+                        data-i18n="nav_skills">Keahlian</a>
+                    <a href="#projects" class="hover:text-blue-400 transition-colors hover-trigger"
+                        data-i18n="nav_portfolio">Portfolio</a>
+                    <a href="#mentoring" class="hover:text-blue-400 transition-colors hover-trigger"
+                        data-i18n="nav_mentoring">Mentoring</a>
                 </div>
 
-                <h2 class="profile__name">Jayyid Saputra</h2>
-                <h3 class="profile__profession">Web Developer</h3>
+                <div class="flex items-center gap-2 pl-2 md:pl-4 md:border-l border-theme relative">
+                    <button id="lang-toggle"
+                        class="text-xs font-bold px-2 py-1 rounded hover:bg-gray-500/10 text-muted hover:text-blue-400 transition-colors hover-trigger">EN</button>
 
-                <ul class="profile__social">
-                    <a href="https://www.instagram.com/jayyidsptr" target="_blank" class="profile__social-link">
-                        <i class="ri-instagram-line"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/jayyidsptr" target="_blank" class="profile__social-link">
-                        <i class="ri-linkedin-box-line"></i>
-                    </a>
-                    <a href="https://github.com/jayyidsptr" target="_blank" class="profile__social-link">
-                        <i class="ri-github-line"></i>
-                    </a>
-                    <a href="https://facebook.com/jayyidsptr" target="_blank" class="profile__social-link">
-                        <i class="ri-facebook-line"></i>
-                    </a>
-                </ul>
-            </div>
+                    <!-- THEME TOGGLE (Cyclical) -->
+                    <button id="theme-toggle"
+                        class="p-2 rounded-full hover:bg-gray-500/10 text-muted hover:text-yellow-400 transition-colors hover-trigger overflow-hidden relative">
+                        <div class="theme-icon-wrapper relative w-5 h-5">
+                            <i data-lucide="moon"
+                                class="w-5 h-5 absolute inset-0 transition-all duration-500 scale-0 opacity-0"
+                                data-icon="dark"></i>
+                            <i data-lucide="sun"
+                                class="w-5 h-5 absolute inset-0 transition-all duration-500 scale-0 opacity-0"
+                                data-icon="light"></i>
+                            <i data-lucide="trees"
+                                class="w-5 h-5 absolute inset-0 transition-all duration-500 scale-0 opacity-0"
+                                data-icon="forest"></i>
+                            <i data-lucide="zap"
+                                class="w-5 h-5 absolute inset-0 transition-all duration-500 scale-0 opacity-0"
+                                data-icon="cyber"></i>
+                        </div>
+                    </button>
 
-            <div class="profile__info grid">
-                <div class="profile__info-group">
-                    <h3 class="profile__info-number">3</h3>
-                    <p class="profile__info-description">
-                        Years of <br> Work
-                    </p>
-                </div>
-                <div class="profile__info-group">
-                    <h3 class="profile__info-number">+50</h3>
-                    <p class="profile__info-description">
-                        Completed <br> Projects
-                    </p>
-                </div>
-                <div class="profile__info-group">
-                    <h3 class="profile__info-number">46</h3>
-                    <p class="profile__info-description">Satisfied <br> Customers</p>
-                </div>
-            </div>
-
-            <div class="profile__buttons">
-                <!-- Insert your CV -->
-                <a download="" href="assets/pdf/jayyidsptr.pdf" class="button">
-                    Download CV <i class="ri-download-line"></i>
-                </a>
-
-                <div class="profile__buttons-small">
-                    <!-- Insert a real number plus country code -->
-                    <a href="https://api.whatsapp.com/send?phone=6289654645695&text=Hello, more information!"
-                        target="_blank" class="button button__small button__gray">
-                        <i class="ri-whatsapp-line"></i>
-                    </a>
-                    <!-- Insert your brand name or profile -->
-                    <a href="https://t.me/jayyidsptr" target="_blank" class="button button__small button__gray">
-                        <i class="ri-telegram-line"></i>
-                    </a>
+                    <a href="#contact"
+                        class="hidden md:inline-block px-4 py-2 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-all hover-trigger ml-2 text-sm"
+                        data-i18n="nav_contact">Hubungi Saya</a>
+                    <button id="mobile-menu-btn"
+                        class="md:hidden p-2 text-muted hover:text-main transition-colors hover-trigger ml-1">
+                        <i data-lucide="menu" class="w-6 h-6 menu-icon-open"></i>
+                        <i data-lucide="x" class="w-6 h-6 menu-icon-close hidden"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!--=============== MAIN ===============-->
-    <main class="main">
-        <section class="filters container">
-            <!--=============== FILTERS TABS ===============-->
-            <ul class="filters__content">
-                <button class="filters__button filter-tab-active" data-target="#projects">
-                    Projects
-                </button>
-                <button class="filters__button" data-target="#skills">
-                    Skills
-                </button>
-            </ul>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-container md:hidden" id="mobile-menu">
+        <a href="#about" class="mobile-link hover-trigger" data-i18n="nav_about">Tentang Saya</a>
+        <a href="#skills" class="mobile-link hover-trigger" data-i18n="nav_skills">Keahlian</a>
+        <a href="#projects" class="mobile-link hover-trigger" data-i18n="nav_portfolio">Portfolio</a>
+        <a href="#mentoring" class="mobile-link hover-trigger" data-i18n="nav_mentoring">Mentoring</a>
+        <a href="#contact" class="mobile-link hover-trigger text-blue-400" data-i18n="nav_contact">Hubungi Saya</a>
+    </div>
 
-            <div class="filters__sections">
-                <!--=============== PROJECTS ===============-->
-                <div class="projects__content grid filters__active" data-content id="projects">
-                    <article class="projects__card">
-                        <!-- Insert your image in a rectangular format (Ex: 600 x 400, 1000 x 800, 1200 x 1000, etc) -->
-                        <img src="assets/img/oneproj.png" alt="" class="projects__img">
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="content-wrapper pt-20 md:pt-24">
 
-                        <div class="projects__modal">
-                            <div>
-                                <span class="projects__subtitle">Frontend</span>
-                                <h3 class="projects__title">Desain Web Artikel Desa</h3>
-                                <a href="https://info-kecicangislam.github.io"
-                                    class="projects__button button button__small">
-                                    <i class="ri-link"></i>
-                                </a>
-                            </div>
+        <!-- HERO SECTION -->
+        <section id="about" class="relative px-4 md:px-6 py-12 md:py-24">
+            <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="space-y-6 md:space-y-8 hero-content">
+                    <div
+                        class="stagger-text inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-theme bg-[var(--glass-bg)] text-xs text-muted w-fit backdrop-blur-sm hover-trigger">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span data-i18n="hero_badge">Open for Freelance & Mentoring</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05]">
+                        <span
+                            class="block text-muted stagger-text text-xl sm:text-2xl md:text-3xl font-medium tracking-widest uppercase"
+                            data-i18n="hero_greeting">Halo, saya Putra.</span>
+                        <span class="block text-main stagger-text tw-cursor" data-i18n="hero_role">Full Stack Dev</span>
+                        <span class="block text-accent stagger-text" data-i18n="hero_subrole">& Mentor Code</span>
+                    </h1>
+                    <p class="stagger-text text-base md:text-lg text-muted max-w-xl leading-relaxed"
+                        data-i18n="hero_desc">
+                        Saya membantu bisnis membangun aplikasi web yang modern, cepat, dan scalable. Selain itu, saya
+                        bersemangat membimbing developer baru untuk menguasai dunia pemrograman.
+                    </p>
+                    <div class="flex flex-wrap gap-3 stagger-text">
+                        <div
+                            class="hover-trigger flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg bg-[var(--glass-bg)] border border-theme text-xs md:text-sm text-blue-400 cursor-default">
+                            <i data-lucide="layers" class="w-3 h-3 md:w-4 md:h-4"></i> Full Stack
                         </div>
-                    </article>
-
-                    <article class="projects__card">
-                        <img src="assets/img/threproj.png" alt="" class="projects__img">
-
-                        <div class="projects__modal">
-                            <div>
-                                <span class="projects__subtitle">Blog Dev</span>
-                                <h3 class="projects__title">Toko Online Blogger</h3>
-                                <a href="https://pekenandaring.blogspot.com/"
-                                    class="projects__button button button__small">
-                                    <i class="ri-link"></i>
-                                </a>
-                            </div>
+                        <div
+                            class="hover-trigger flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg bg-[var(--glass-bg)] border border-theme text-xs md:text-sm text-purple-400 cursor-default">
+                            <i data-lucide="users" class="w-3 h-3 md:w-4 md:h-4"></i> Mentoring
                         </div>
-                    </article>
-
-                    <article class="projects__card">
-                        <img src="assets/img/sixproj.png" alt="" class="projects__img">
-
-                        <div class="projects__modal">
-                            <div>
-                                <span class="projects__subtitle">Mobile Dev</span>
-                                <h3 class="projects__title">Ebook App or IOs</h3>
-                                <a href="https://prabook.glideapp.io" class="projects__button button button__small">
-                                    <i class="ri-link"></i>
-                                </a>
-                            </div>
+                        <div
+                            class="hover-trigger flex items-center gap-2 px-3 md:px-4 py-2 rounded-lg bg-[var(--glass-bg)] border border-theme text-xs md:text-sm text-cyan-400 cursor-default">
+                            <i data-lucide="code" class="w-3 h-3 md:w-4 md:h-4"></i> Clean Code
                         </div>
-                    </article>
-
-                    <article class="projects__card">
-                        <img src="assets/img/fiveproj.png" alt="" class="projects__img">
-
-                        <div class="projects__modal">
-                            <div>
-                                <span class="projects__subtitle">Backend</span>
-                                <h3 class="projects__title">Website Drive Online</h3>
-                                <a href="https://drive.pracode.my.id/" class="projects__button button button__small">
-                                    <i class="ri-link"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- <article class="projects__card">
-                        <img src="assets/img/project5.jpg" alt="" class="projects__img">
-
-                        <div class="projects__modal">
-                            <div>
-                                <span class="projects__subtitle">Cliente</span>
-                                <h3 class="projects__title">Alianças</h3>
-                                <a href="#" class="projects__button button button__small">
-                                    <i class="ri-link"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="projects__card">
-                        <img src="assets/img/project6.jpg" alt="" class="projects__img">
-
-                        <div class="projects__modal">
-                            <div>
-                                <span class="projects__subtitle">Pessoal</span>
-                                <h3 class="projects__title">Ambiente de Trabalho</h3>
-                                <a href="#" class="projects__button button button__small">
-                                    <i class="ri-link"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </article> -->
+                    </div>
+                    <div class="flex flex-wrap items-center gap-4 pt-4 stagger-text">
+                        <a href="#projects"
+                            class="btn-primary px-6 py-3 rounded-full bg-white text-black font-semibold flex items-center gap-2 transition-all hover-trigger text-sm md:text-base">
+                            <i data-lucide="folder-open" class="w-4 h-4 fill-black"></i>
+                            <span data-i18n="btn_portfolio">Lihat Portfolio</span>
+                        </a>
+                        <a href="#mentoring"
+                            class="px-6 py-3 rounded-full border border-theme text-main font-medium hover:bg-gray-500/10 transition-all flex items-center gap-2 backdrop-blur-sm hover-trigger text-sm md:text-base">
+                            <i data-lucide="coffee" class="w-4 h-4"></i>
+                            <span data-i18n="btn_learn">Belajar dengan Saya</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!--=============== SKILLS ===============-->
-                <div class="skills__content grid" data-content id="skills">
-                    <div class="skills__area">
-                        <h3 class="skills__title">Frontend Developer</h3>
-
-                        <div class="skills__box">
-                            <div class="skills__group">
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            HTML</h3>
-                                        <span class="skills__level">Intermediate</span>
+                <div
+                    class="relative h-[350px] sm:h-[400px] lg:h-[500px] w-full flex items-center justify-center perspective-1000">
+                    <div
+                        class="ide-container absolute inset-0 glass-panel rounded-3xl overflow-hidden flex flex-col opacity-0 scale-95">
+                        <div
+                            class="absolute top-0 left-0 w-full h-full opacity-30 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-500 via-transparent to-transparent">
+                        </div>
+                        <div class="relative z-10 flex-grow flex items-center justify-center p-4 md:p-8">
+                            <div
+                                class="w-full bg-[#0a0a0a] rounded-xl border border-white/10 shadow-2xl overflow-hidden font-mono hover-trigger text-xs sm:text-sm">
+                                <div
+                                    class="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-white/5">
+                                    <div class="flex gap-1.5">
+                                        <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50">
+                                        </div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50">
+                                        </div>
                                     </div>
+                                    <div class="text-[10px] sm:text-xs text-zinc-500 font-medium tracking-wider">
+                                        DeveloperProfile.tsx</div>
                                 </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            CSS</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">JavaScript</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="skills__group">
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            Bootstrap</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            Git</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            React</h3>
-                                        <span class="skills__level">Basic</span>
+                                <div
+                                    class="p-5 sm:p-6 md:p-8 leading-loose text-white overflow-x-auto custom-scrollbar">
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">1</span><span
+                                            class="text-purple-400">const</span> <span
+                                            class="text-yellow-200">putra</span> = {</div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">2</span><span
+                                            class="pl-6 text-blue-300">role:</span> <span class="text-green-400">"Full
+                                            Stack Developer"</span>,</div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">3</span><span
+                                            class="pl-6 text-blue-300">experience:</span> <span
+                                            class="text-orange-400">5</span>, <span class="text-zinc-500 italic">//
+                                            years</span></div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">4</span><span
+                                            class="pl-6 text-blue-300">stack:</span> [</div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">5</span><span
+                                            class="pl-12 text-green-400">"Laravel"</span>, <span
+                                            class="text-green-400">"React"</span>, <span
+                                            class="text-green-400">"MySQL"</span></div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">6</span><span
+                                            class="pl-6">],</span></div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">7</span><span
+                                            class="pl-6 text-blue-300">passion:</span> <span
+                                            class="text-green-400">"Teaching & Building"</span></div>
+                                    <div class="flex code-line whitespace-nowrap"><span
+                                            class="text-zinc-600 w-6 text-right mr-4 select-none">8</span><span>};</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="skills__area">
-                        <h3 class="skills__title">Backend Developer</h3>
-
-                        <div class="skills__box">
-                            <div class="skills__group">
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            PHP</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            Python</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">Node JS</h3>
-                                        <span class="skills__level">Basic</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="skills__group">
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            Laravel</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            Codeigniter</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-
-                                <div class="skills__data">
-                                    <i class="ri-checkbox-circle-line"></i>
-
-                                    <div>
-                                        <h3 class="skills__name">
-                                            MySQL</h3>
-                                        <span class="skills__level">Advanced</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
+            </div>
         </section>
-    </main>
 
-    <!--=============== FOOTER ===============-->
-    <footer class="footer container">
-        <span class="footer__copy">
-            &#169; Jayyid Saputra. All rights reserved
-        </span>
-    </footer>
+        <!-- TECH STACK MARQUEE -->
+        <section id="skills" class="border-y border-theme bg-[var(--bg-main)]/50 py-10 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 mb-6">
+                <h3 class="text-center text-xs md:text-sm text-muted uppercase tracking-widest" data-i18n="stack_title">
+                    Teknologi yang saya gunakan</h3>
+            </div>
+            <div class="relative overflow-hidden tech-stack-container">
+                <div class="marquee-track">
+                    <!-- Set 1 -->
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-red-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="layers" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Laravel</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-blue-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="code-2" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">React</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-yellow-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="file-json" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">JavaScript</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-green-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="server" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Node.js</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-cyan-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="wind" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Tailwind</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-blue-600 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="layout-template" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">WordPress</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-blue-500 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="database" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">MySQL</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-orange-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="git-branch" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Git</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-sky-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="cloud" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Docker</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-violet-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="zap" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Next.js</span>
+                    </div>
+                    <!-- Set 2 (duplicate for seamless loop) -->
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-red-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="layers" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Laravel</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-blue-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="code-2" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">React</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-yellow-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="file-json" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">JavaScript</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-green-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="server" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Node.js</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-cyan-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="wind" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Tailwind</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-blue-600 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="layout-template" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">WordPress</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-blue-500 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="database" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">MySQL</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-orange-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="git-branch" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Git</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-sky-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="cloud" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Docker</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-1.5 text-muted hover:text-violet-400 transition-colors hover-trigger cursor-pointer">
+                        <i data-lucide="zap" class="w-7 h-7"></i><span
+                            class="text-[10px] font-medium tracking-wide">Next.js</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!--=============== SCROLLREVEAL ===============-->
-    <script src="assets/js/scrollreveal.min.js"></script>
 
-    <!--=============== MAIN JS ===============-->
-    <script src="assets/js/main.js"></script>
+        <!-- STATS SECTION -->
+        <section class="py-12 border-b border-theme bg-[var(--bg-main)]/30 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="hover-trigger">
+                    <div class="text-3xl md:text-4xl font-bold text-main mb-1 stat-number">5+</div>
+                    <div class="text-[10px] md:text-sm text-muted uppercase tracking-wider" data-i18n="stat_exp">Tahun
+                        Pengalaman</div>
+                </div>
+                <div class="hover-trigger">
+                    <div class="text-3xl md:text-4xl font-bold text-main mb-1 stat-number">20+</div>
+                    <div class="text-[10px] md:text-sm text-muted uppercase tracking-wider" data-i18n="stat_proj">Proyek
+                        Selesai</div>
+                </div>
+                <div class="hover-trigger">
+                    <div class="text-3xl md:text-4xl font-bold text-main mb-1 stat-number">100+</div>
+                    <div class="text-[10px] md:text-sm text-muted uppercase tracking-wider" data-i18n="stat_mentee">
+                        Mentee Dibimbing</div>
+                </div>
+                <div class="hover-trigger">
+                    <div class="text-3xl md:text-4xl font-bold text-main mb-1 stat-number">100%</div>
+                    <div class="text-[10px] md:text-sm text-muted uppercase tracking-wider"
+                        data-i18n="stat_satisfaction">Kepuasan Klien</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="expertise" class="py-16 md:py-20 px-4 md:px-6 skills-section">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-10 space-y-3">
+                    <h2 class="text-3xl md:text-4xl font-bold text-main">Keahlian <span
+                            class="text-accent">Teknis</span></h2>
+                    <p class="text-muted text-sm md:text-base">Teknologi yang saya kuasai dan gunakan sehari-hari dalam
+                        membangun produk.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 skill-bars-container">
+                    <div class="space-y-1 hover-trigger">
+                        <div class="flex justify-between text-sm mb-2"><span class="text-main font-medium">Laravel /
+                                PHP</span><span class="text-muted text-xs">92%</span></div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" data-width="92"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1 hover-trigger">
+                        <div class="flex justify-between text-sm mb-2"><span class="text-main font-medium">React /
+                                Next.js</span><span class="text-muted text-xs">88%</span></div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1 hover-trigger">
+                        <div class="flex justify-between text-sm mb-2"><span class="text-main font-medium">JavaScript /
+                                TypeScript</span><span class="text-muted text-xs">90%</span></div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1 hover-trigger">
+                        <div class="flex justify-between text-sm mb-2"><span class="text-main font-medium">MySQL /
+                                PostgreSQL</span><span class="text-muted text-xs">85%</span></div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1 hover-trigger">
+                        <div class="flex justify-between text-sm mb-2"><span class="text-main font-medium">Tailwind CSS
+                                / UI/UX</span><span class="text-muted text-xs">94%</span></div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" data-width="94"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-1 hover-trigger">
+                        <div class="flex justify-between text-sm mb-2"><span class="text-main font-medium">Docker /
+                                DevOps</span><span class="text-muted text-xs">72%</span></div>
+                        <div class="skill-bar-track">
+                            <div class="skill-bar-fill" data-width="72"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE SECTION -->
+        <section id="experience" class="py-16 md:py-24 px-4 md:px-6 bg-[var(--bg-main)]/30 border-t border-theme">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 md:mb-16 space-y-4">
+                    <h2 class="text-3xl md:text-4xl font-semibold text-main"><span
+                            data-i18n="exp_title">Perjalanan</span> <span class="text-gradient-blue"
+                            data-i18n="exp_subtitle">Karir</span></h2>
+                    <p class="text-muted max-w-2xl mx-auto text-sm md:text-base" data-i18n="exp_desc">Rekam jejak
+                        pengalaman profesional saya dalam membangun produk digital berkualitas tinggi.</p>
+                </div>
+                <div class="relative border-l border-theme/50 ml-4 md:ml-0 md:pl-8 space-y-12 experience-timeline">
+                    <!-- Timeline Item 1 -->
+                    <div class="relative pl-6 md:pl-0 glass-card rounded-2xl p-6 md:p-8 hover-trigger group">
+                        <div
+                            class="absolute -left-[33px] md:-left-[43px] top-8 w-4 h-4 rounded-full bg-[var(--bg-main)] border-2 border-[var(--accent-color)] group-hover:bg-[var(--accent-color)] group-hover:shadow-[0_0_15px_var(--accent-color)] transition-all duration-300 z-10">
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl md:text-2xl font-medium text-main">Information Technology Teacher</h3>
+                            <span class="text-sm font-mono text-accent bg-blue-500/10 px-3 py-1 rounded-full w-fit">Apr
+                                2023 - May 2025</span>
+                        </div>
+                        <h4 class="text-muted font-medium mb-4">Timedoor Academy <span class="opacity-50">| Bali</span>
+                        </h4>
+                        <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="exp_1_desc">Mengajar siswa tentang
+                            dasar-dasar pemrograman dan pengembangan aplikasi. Membimbing siswa memahami logika coding,
+                            algoritma, dan best practices industri melalui pendekatan berbasis proyek nyata.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Education</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Programming</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Mentoring</span>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 2 -->
+                    <div class="relative pl-6 md:pl-0 glass-card rounded-2xl p-6 md:p-8 hover-trigger group">
+                        <div
+                            class="absolute -left-[33px] md:-left-[43px] top-8 w-4 h-4 rounded-full bg-[var(--bg-main)] border-2 border-blue-500 group-hover:bg-blue-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.8)] transition-all duration-300 z-10">
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl md:text-2xl font-medium text-main">Full Stack Developer</h3>
+                            <span
+                                class="text-sm font-mono text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full w-fit">Feb
+                                2022 - Apr 2023</span>
+                        </div>
+                        <h4 class="text-muted font-medium mb-4">Orbena Indonesia <span class="opacity-50">| Kuta
+                                Utara</span></h4>
+                        <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="exp_2_desc">Membangun aplikasi web
+                            dari sisi front-end dan back-end. Menangani fitur keamanan sistem dan pemrosesan data.
+                            Berkolaborasi dalam tim untuk pengembangan MVP berbasis Laravel dan React.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Laravel</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">React</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Full
+                                Stack</span>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 3 -->
+                    <div class="relative pl-6 md:pl-0 glass-card rounded-2xl p-6 md:p-8 hover-trigger group">
+                        <div
+                            class="absolute -left-[33px] md:-left-[43px] top-8 w-4 h-4 rounded-full bg-[var(--bg-main)] border-2 border-purple-500 group-hover:bg-purple-500 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.8)] transition-all duration-300 z-10">
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl md:text-2xl font-medium text-main">IT Support</h3>
+                            <span
+                                class="text-sm font-mono text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full w-fit">Jun
+                                2019 - Present</span>
+                        </div>
+                        <h4 class="text-muted font-medium mb-4">Kecicang Islamic Village <span class="opacity-50">|
+                                Karangasem</span></h4>
+                        <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="exp_3_desc">Mengelola dan merawat
+                            peralatan komputer serta jaringan kantor desa. Membantu digitalisasi data kependudukan dan
+                            surat-menyurat, serta menangani troubleshooting hardware dan software harian.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Hardware</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Networking</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">Support</span>
+                        </div>
+                    </div>
+                    <!-- Timeline Item 4 -->
+                    <div class="relative pl-6 md:pl-0 glass-card rounded-2xl p-6 md:p-8 hover-trigger group">
+                        <div
+                            class="absolute -left-[33px] md:-left-[43px] top-8 w-4 h-4 rounded-full bg-[var(--bg-main)] border-2 border-cyan-500 group-hover:bg-cyan-500 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.8)] transition-all duration-300 z-10">
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-2">
+                            <h3 class="text-xl md:text-2xl font-medium text-main">Freelance Web Developer</h3>
+                            <span
+                                class="text-sm font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full w-fit">Apr
+                                2019 - Present</span>
+                        </div>
+                        <h4 class="text-muted font-medium mb-4">Self-Projects <span class="opacity-50">| From
+                                Home</span></h4>
+                        <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="exp_4_desc">Mengerjakan berbagai
+                            proyek website custom (WordPress, Laravel, React). Berpengalaman membuat profil profesional,
+                            profil perusahaan, hingga landing page UMKM dengan desain UI/UX mobile-first yang responsif.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">WordPress</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">React</span>
+                            <span
+                                class="text-[10px] uppercase font-medium tracking-wide px-3 py-1 bg-white/5 border border-white/10 text-zinc-300 rounded-full">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-16 md:py-24 px-4 md:px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4 md:gap-6">
+                    <div class="space-y-2 md:space-y-4">
+                        <h2 class="text-3xl md:text-4xl font-semibold text-main"><span data-i18n="projects_title">Karya
+                                &</span> <span class="text-gradient-blue">Portfolio</span></h2>
+                        <p class="text-muted max-w-xl text-sm md:text-base" data-i18n="projects_desc">Beberapa proyek
+                            terpilih yang telah saya kerjakan, mulai dari aplikasi SaaS, dashboard manajemen, hingga
+                            landing page interaktif.</p>
+                    </div>
+                    <a href="https://github.com/jayyidsptr" target="_blank"
+                        class="text-sm text-main border-b border-theme pb-1 hover:text-blue-400 transition-colors flex items-center gap-2 hover-trigger w-fit"><span
+                            data-i18n="projects_link">Lihat Github Saya</span> <i data-lucide="arrow-up-right"
+                            class="w-4 h-4"></i></a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 project-grid">
+                    <!-- Card 1 -->
+                    <div class="tilt-wrap">
+                        <div class="glass-card tilt-card rounded-2xl overflow-hidden group flex flex-col hover-trigger">
+                            <div class="proj-img-wrap h-44 md:h-52 bg-zinc-900 relative">
+                                <img src="assets/images/smarthouse.png" alt="SmartHouse"
+                                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                                </div>
+                                <div class="proj-overlay">
+                                    <a href="http://smarthouse.web.id" target="_blank"
+                                        class="px-4 py-2 rounded-full bg-white text-black text-xs font-bold hover:bg-zinc-200 transition-colors flex items-center gap-1">Live
+                                        Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="p-5 md:p-6 flex flex-col flex-grow">
+                                <div class="flex gap-2 mb-3"><span
+                                        class="text-[10px] uppercase px-2 py-1 bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20 font-semibold tracking-wide">Education</span><span
+                                        class="text-[10px] uppercase px-2 py-1 bg-zinc-800 text-zinc-400 rounded-full border border-zinc-700 font-semibold tracking-wide">Website</span>
+                                </div>
+                                <h3
+                                    class="text-lg md:text-xl font-semibold text-main mb-2 group-hover:text-indigo-400 transition-colors">
+                                    SmartHouse English</h3>
+                                <p class="text-muted text-sm leading-relaxed flex-grow" data-i18n="proj_1_desc">
+                                    Dashboard manajemen stok dan penjualan dengan fitur analitik real-time dan integrasi
+                                    payment gateway.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="tilt-wrap">
+                        <div class="glass-card tilt-card rounded-2xl overflow-hidden group flex flex-col hover-trigger">
+                            <div class="proj-img-wrap h-44 md:h-52 bg-zinc-900 relative">
+                                <img src="assets/images/pramenu.png" alt="PraMenu"
+                                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                                </div>
+                                <div class="proj-overlay">
+                                    <a href="http://pramenu.my.id" target="_blank"
+                                        class="px-4 py-2 rounded-full bg-white text-black text-xs font-bold hover:bg-zinc-200 transition-colors flex items-center gap-1">Live
+                                        Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="p-5 md:p-6 flex flex-col flex-grow">
+                                <div class="flex gap-2 mb-3"><span
+                                        class="text-[10px] uppercase px-2 py-1 bg-violet-500/10 text-violet-400 rounded-full border border-violet-500/20 font-semibold tracking-wide">F&B</span><span
+                                        class="text-[10px] uppercase px-2 py-1 bg-zinc-800 text-zinc-400 rounded-full border border-zinc-700 font-semibold tracking-wide">QR
+                                        Menu</span></div>
+                                <h3
+                                    class="text-lg md:text-xl font-semibold text-main mb-2 group-hover:text-violet-400 transition-colors">
+                                    PRAMENU Digital</h3>
+                                <p class="text-muted text-sm leading-relaxed flex-grow" data-i18n="proj_2_desc">Aplikasi
+                                    manajemen tugas kolaboratif untuk tim remote dengan fitur drag-and-drop dan
+                                    notifikasi realtime.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="tilt-wrap">
+                        <div class="glass-card tilt-card rounded-2xl overflow-hidden group flex flex-col hover-trigger">
+                            <div class="proj-img-wrap h-44 md:h-52 bg-zinc-900 relative">
+                                <img src="assets/images/pracbt.png" alt="PraCBT"
+                                    class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                                </div>
+                                <div class="proj-overlay">
+                                    <a href="https://pracbt.vercel.app/" target="_blank"
+                                        class="px-4 py-2 rounded-full bg-white text-black text-xs font-bold hover:bg-zinc-200 transition-colors flex items-center gap-1">Live
+                                        Demo <i data-lucide="external-link" class="w-3 h-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="p-5 md:p-6 flex flex-col flex-grow">
+                                <div class="flex gap-2 mb-3"><span
+                                        class="text-[10px] uppercase px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20 font-semibold tracking-wide">EdTech</span><span
+                                        class="text-[10px] uppercase px-2 py-1 bg-zinc-800 text-zinc-400 rounded-full border border-zinc-700 font-semibold tracking-wide">CBT</span>
+                                </div>
+                                <h3
+                                    class="text-lg md:text-xl font-semibold text-main mb-2 group-hover:text-cyan-400 transition-colors">
+                                    PraCBT Platform</h3>
+                                <p class="text-muted text-sm leading-relaxed flex-grow" data-i18n="proj_3_desc">Landing
+                                    page high-fidelity dengan animasi 3D dan glassmorphism untuk startup cryptocurrency.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mentoring" class="py-16 md:py-24 px-4 md:px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="space-y-6 mentoring-content opacity-0 transform translate-y-10">
+                        <h2 class="text-3xl md:text-4xl font-semibold text-main"><span
+                                data-i18n="mentor_title_1">Belajar Coding</span> <br><span class="text-gradient-blue"
+                                data-i18n="mentor_title_2">Langsung Dari Ahlinya</span></h2>
+                        <p class="text-muted text-base md:text-lg leading-relaxed" data-i18n="mentor_desc">Bosan belajar
+                            dari tutorial video yang pasif? Saya menawarkan mentoring 1-on-1 di mana kita akan bedah
+                            kode, membangun proyek nyata, dan mempersiapkan karir Anda.</p>
+                        <ul class="space-y-4 mt-6 md:mt-8">
+                            <li class="flex items-center gap-3 text-muted text-sm md:text-base">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="check" class="w-3 h-3 text-green-400"></i>
+                                </div><span data-i18n="mentor_point_1">Kurikulum disesuaikan dengan level Anda</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-muted text-sm md:text-base">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="check" class="w-3 h-3 text-green-400"></i>
+                                </div><span data-i18n="mentor_point_2">Code Review mendalam (Clean Code & Best
+                                    Practice)</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-muted text-sm md:text-base">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="check" class="w-3 h-3 text-green-400"></i>
+                                </div><span data-i18n="mentor_point_3">Persiapan interview kerja & portofolio</span>
+                            </li>
+                        </ul>
+                        <div class="pt-4"><a
+                                href="https://api.whatsapp.com/send?phone=6289654645695&text=Halo%20Mas%20Putra,%20saya%20tertarik%20untuk%20menjadwalkan%20sesi%20gratis%20mentoring%20coding.%20Boleh%20minta%20info%20lebih%20lanjut?"
+                                target="_blank"
+                                class="btn-primary inline-flex px-6 py-3 rounded-full bg-white text-black font-bold items-center gap-2 hover:bg-zinc-200 transition-colors hover-trigger text-sm md:text-base"><span
+                                    data-i18n="btn_schedule">Jadwalkan Sesi Gratis</span></a></div>
+                    </div>
+                    <div
+                        class="glass-panel rounded-3xl p-8 md:p-10 border border-theme relative mentoring-card opacity-0 transform translate-x-10 hover-trigger mt-8 lg:mt-0 overflow-hidden">
+                        <i data-lucide="quote"
+                            class="absolute -top-4 -right-2 w-32 h-32 text-white opacity-[0.03] rotate-12 pointer-events-none"></i>
+                        <div class="space-y-8 relative z-10">
+                            <!-- Testimonial 1 -->
+                            <div class="space-y-5">
+                                <p class="text-base md:text-lg text-zinc-300 italic leading-relaxed"
+                                    data-i18n="testimonial_1">"Bang Putra bukan cuma ngajarin syntax, tapi cara
+                                    berpikir sebagai engineer. Berkat mentoringnya, saya berhasil switch career dalam 3
+                                    bulan!"</p>
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center font-bold text-white shadow-inner">
+                                        R</div>
+                                    <div>
+                                        <div class="text-white font-semibold text-sm md:text-base">Rizky A.</div>
+                                        <div class="text-blue-400 text-xs font-mono">Frontend Developer @ Unicorn</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent">
+                            </div>
+
+                            <!-- Testimonial 2 -->
+                            <div class="space-y-5">
+                                <p class="text-base md:text-lg text-zinc-300 italic leading-relaxed"
+                                    data-i18n="testimonial_2">"Penjelasan yang sangat jelas dan mudah dipahami. Code
+                                    review-nya detail banget, saya jadi paham pentingnya clean code."</p>
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-white/10 flex items-center justify-center font-bold text-white shadow-inner">
+                                        S</div>
+                                    <div>
+                                        <div class="text-white font-semibold text-sm md:text-base">Sarah P.</div>
+                                        <div class="text-green-400 text-xs font-mono">Freelance Web Dev</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact" class="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden contact-section">
+            <div
+                class="max-w-5xl mx-auto glass-panel rounded-3xl p-6 md:p-12 border border-theme contact-card opacity-0 translate-y-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                    <div class="space-y-6">
+                        <h2 class="text-3xl md:text-5xl font-bold text-main leading-tight" data-i18n="contact_title">
+                            Mari Bekerja<br><span class="text-accent">Sama</span></h2>
+                        <p class="text-muted text-sm md:text-base leading-relaxed" data-i18n="contact_desc">Punya ide
+                            proyek menarik? Atau ingin meningkatkan skill coding Anda? Jangan ragu untuk menyapa.</p>
+                        <div class="space-y-4 pt-2">
+                            <a href="mailto:tjayyid@gmail.com"
+                                class="flex items-center gap-3 text-muted hover:text-main transition-colors hover-trigger group">
+                                <div
+                                    class="w-9 h-9 rounded-xl border border-theme flex items-center justify-center group-hover:border-[var(--accent-color)] transition-colors">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                </div><span class="text-sm">tjayyid@gmail.com</span>
+                            </a>
+                            <a href="https://t.me/jayyidsptr" target="_blank"
+                                class="flex items-center gap-3 text-muted hover:text-main transition-colors hover-trigger group">
+                                <div
+                                    class="w-9 h-9 rounded-xl border border-theme flex items-center justify-center group-hover:border-[var(--accent-color)] transition-colors">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                </div><span class="text-sm">@jayyidsptr</span>
+                            </a>
+                            <a href="https://api.whatsapp.com/send?phone=6289654645695" target="_blank"
+                                class="flex items-center gap-3 text-muted hover:text-main transition-colors hover-trigger group">
+                                <div
+                                    class="w-9 h-9 rounded-xl border border-theme flex items-center justify-center group-hover:border-[var(--accent-color)] transition-colors">
+                                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                </div><span class="text-sm">+62
+                                    896-5464-5695</span>
+                            </a>
+                        </div>
+                    </div>
+                    <form id="contact-form" class="space-y-4" onsubmit="handleFormSubmit(event)">
+                        <input type="text" class="form-input" placeholder="Nama Anda" required>
+                        <input type="email" class="form-input" placeholder="Email Anda" required>
+                        <input type="text" class="form-input" placeholder="Subjek">
+                        <textarea class="form-input" placeholder="Ceritakan proyek Anda..."></textarea>
+                        <button type="submit"
+                            class="w-full px-6 py-3 rounded-xl bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all hover-trigger flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> <span>Kirim Pesan</span>
+                        </button>
+                        <p id="form-success" class="text-center text-sm text-green-400 hidden">Pesan terkirim! Saya akan
+                            balas segera.</p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            class="border-t border-theme backdrop-blur-md bg-[var(--nav-bg)] pt-12 md:pt-16 pb-8 px-4 md:px-6 text-sm relative z-10">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 mb-12">
+                <div class="space-y-4 text-center md:text-left">
+                    <a href="#" class="logo-wrapper hover-trigger group mb-4 inline-block"><span
+                            class="logo-js text-2xl">JS</span>
+                        <div class="logo-dot-glow animate-pulse" style="display: inline-block; margin-bottom: 2px;">
+                        </div>
+                    </a>
+                    <p class="text-muted max-w-xs leading-relaxed mx-auto md:mx-0" data-i18n="footer_bio">Full Stack
+                        Developer & Mentor.<br>Membangun produk digital berkualitas tinggi.</p>
+                    <div class="flex gap-4 justify-center md:justify-start"><a href="https://x.com/jayyidsptr"
+                            target="_blank" class="text-muted hover:text-main transition-colors hover-trigger"><i
+                                data-lucide="twitter" class="w-5 h-5"></i></a><a href="https://github.com/jayyidsptr"
+                            target="_blank" class="text-muted hover:text-main transition-colors hover-trigger"><i
+                                data-lucide="github" class="w-5 h-5"></i></a><a
+                            href="https://linkedin.com/in/jayyidsptr" target="_blank"
+                            class="text-muted hover:text-main transition-colors hover-trigger"><i data-lucide="linkedin"
+                                class="w-5 h-5"></i></a><a href="https://instagram.com/jayyidsptr" target="_blank"
+                            class="text-muted hover:text-main transition-colors hover-trigger"><i
+                                data-lucide="instagram" class="w-5 h-5"></i></a></div>
+                </div>
+                <div class="grid grid-cols-2 gap-8 sm:gap-16">
+                    <div>
+                        <h4 class="text-main font-semibold mb-4" data-i18n="footer_nav">Navigasi</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#about" class="text-muted hover:text-blue-400 transition-colors hover-trigger"
+                                    data-i18n="nav_about">Home</a></li>
+                            <li><a href="#projects"
+                                    class="text-muted hover:text-blue-400 transition-colors hover-trigger"
+                                    data-i18n="nav_portfolio">Portfolio</a></li>
+                            <li><a href="#mentoring"
+                                    class="text-muted hover:text-blue-400 transition-colors hover-trigger"
+                                    data-i18n="nav_mentoring">Mentoring</a></li>
+                            <li><a href="#contact"
+                                    class="text-muted hover:text-blue-400 transition-colors hover-trigger"
+                                    data-i18n="nav_contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-main font-semibold mb-4" data-i18n="footer_services">Layanan</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-muted hover:text-blue-400 transition-colors hover-trigger">Web
+                                    Development</a></li>
+                            <li><a href="#" class="text-muted hover:text-blue-400 transition-colors hover-trigger">UI
+                                    Slicing</a></li>
+                            <li><a href="#"
+                                    class="text-muted hover:text-blue-400 transition-colors hover-trigger">Private
+                                    Mentoring</a></li>
+                            <li><a href="#" class="text-muted hover:text-blue-400 transition-colors hover-trigger">Code
+                                    Review</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="max-w-7xl mx-auto border-t border-theme pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-muted text-center md:text-left">&copy; 2024 Putra Saputra. <span
+                        data-i18n="made_with">Dibuat dengan</span> <i
+                        class="inline-block w-3 h-3 text-red-500 fill-red-500" data-lucide="heart"></i> <span
+                        data-i18n="and_coffee">dan Kopi.</span></div>
+                <div
+                    class="flex items-center gap-2 px-3 py-1 rounded-full border border-theme bg-[var(--bg-main)] text-xs text-muted hover-trigger">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div><span
+                        data-i18n="status_available">Available for projects</span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- MODULAR JS FILES -->
+    <script src="assets/js/app.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/i18n.js" defer></script>
+    <script src="assets/js/three-bg.js" defer></script>
+    <script src="assets/js/cursor.js" defer></script>
+    <script src="assets/js/interactions.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 
 </html>

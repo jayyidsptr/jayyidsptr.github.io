@@ -1,0 +1,79 @@
+/* =============================================
+   THEMES.CSS — CSS Variables for all 4 themes
+   ============================================= */
+
+/* 1. DARK (Default) */
+:root {
+    --bg-main: #030303;
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
+    --nav-bg: rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --card-bg-hover: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --cursor-color: 255, 255, 255;
+    --logo-grad-start: #ffffff;
+    --logo-grad-end: #94a3b8;
+    --mobile-menu-bg: #0a0a0a;
+    --accent-color: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --gold: #f59e0b;
+}
+
+/* 2. LIGHT */
+[data-theme="light"] {
+    --bg-main: #ffffff;
+    --text-main: #18181b;
+    --text-muted: #52525b;
+    --nav-bg: rgba(255, 255, 255, 0.85);
+    --glass-bg: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --card-bg-hover: rgba(0, 0, 0, 0.04);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --cursor-color: 0, 0, 0;
+    --logo-grad-start: #334155;
+    --logo-grad-end: #0f172a;
+    --mobile-menu-bg: #ffffff;
+    --accent-color: #4f46e5;
+    --accent-glow: rgba(79, 70, 229, 0.15);
+    --gold: #d97706;
+}
+
+/* 3. FOREST */
+[data-theme="forest"] {
+    --bg-main: #051a10;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --nav-bg: rgba(5, 26, 16, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-bg-hover: rgba(34, 197, 94, 0.1);
+    --border-color: rgba(34, 197, 94, 0.2);
+    --cursor-color: 250, 204, 21;
+    --logo-grad-start: #4ade80;
+    --logo-grad-end: #14532d;
+    --mobile-menu-bg: #062c1b;
+    --accent-color: #10b981;
+    --accent-glow: rgba(16, 185, 129, 0.2);
+    --gold: #fbbf24;
+}
+
+/* 4. CYBER */
+[data-theme="cyber"] {
+    --bg-main: #0f0726;
+    --text-main: #f0abfc;
+    --text-muted: #c084fc;
+    --nav-bg: rgba(15, 7, 38, 0.7);
+    --glass-bg: rgba(216, 180, 254, 0.05);
+    --glass-border: rgba(192, 132, 252, 0.2);
+    --card-bg-hover: rgba(232, 121, 249, 0.1);
+    --border-color: rgba(232, 121, 249, 0.3);
+    --cursor-color: 244, 114, 182;
+    --logo-grad-start: #f472b6;
+    --logo-grad-end: #a855f7;
+    --mobile-menu-bg: #1e1b4b;
+    --accent-color: #c026d3;
+    --accent-glow: rgba(192, 38, 211, 0.2);
+    --gold: #fb7185;
+}
