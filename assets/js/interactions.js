@@ -27,20 +27,26 @@
     }
 
     // --- 3D TILT EFFECT ---
-    document.querySelectorAll('.tilt-wrap').forEach(wrap => {
-        const card = wrap.querySelector('.tilt-card') || wrap;
-        wrap.addEventListener('mousemove', (e) => {
-            const rect = wrap.getBoundingClientRect();
-            const x = e.clientX - rect.left, y = e.clientY - rect.top;
-            const cx = rect.width / 2, cy = rect.height / 2;
-            const rotX = ((y - cy) / cy) * -8;
-            const rotY = ((x - cx) / cx) * 8;
-            card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+    window.initTilt = function (root = document) {
+        if (APP.reducedMotion) return;
+        root.querySelectorAll('.tilt-wrap').forEach(wrap => {
+            if (wrap.dataset.tiltBound) return;
+            wrap.dataset.tiltBound = '1';
+            const card = wrap.querySelector('.tilt-card') || wrap;
+            wrap.addEventListener('mousemove', (e) => {
+                const rect = wrap.getBoundingClientRect();
+                const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                const cx = rect.width / 2, cy = rect.height / 2;
+                const rotX = ((y - cy) / cy) * -8;
+                const rotY = ((x - cx) / cx) * 8;
+                card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+            });
+            wrap.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale(1)';
+            });
         });
-        wrap.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale(1)';
-        });
-    });
+    };
+    window.initTilt();
 
     // --- CONTACT FORM HANDLER (Web3Forms) ---
     window.handleFormSubmit = async function(e) {

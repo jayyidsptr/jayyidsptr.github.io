@@ -59,6 +59,8 @@
                 }
             }
         });
+        // Notify dynamic renderers (e.g. projects.js) that the language changed
+        document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
     }
 
     // Init

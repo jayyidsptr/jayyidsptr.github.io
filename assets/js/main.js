@@ -44,12 +44,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(t);
             }
 
-            // Projects
-            if (t.id === 'projects' || t.classList.contains('project-grid')) {
-                if (reduced) revealNow('.project-grid .glass-card');
-                else if (typeof anime !== 'undefined') anime({ targets: '.project-grid .glass-card', translateY: [50, 0], opacity: [0, 1], delay: anime.stagger(150), easing: 'easeOutCubic' });
-                observer.unobserve(t);
-            }
+            // Projects are rendered + revealed by projects.js (data-driven from JSON)
 
             // Experience
             if (t.id === 'experience') {
@@ -77,7 +72,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.tech-stack-container, .project-grid, #experience, #mentoring, #contact').forEach(el => observer.observe(el));
+    document.querySelectorAll('.tech-stack-container, #experience, #mentoring, #contact').forEach(el => observer.observe(el));
 
     // Skill bars specific observer
     const skillObserver = new IntersectionObserver((entries) => {

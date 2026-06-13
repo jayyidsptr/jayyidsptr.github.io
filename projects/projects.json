@@ -1,0 +1,35 @@
+[
+  {
+    "title": "SmartHouse English",
+    "image": "projects/images/smarthouse.png",
+    "link": "https://smarthouse.web.id",
+    "accent": "indigo",
+    "tags": ["Education", "Website"],
+    "desc": {
+      "id": "Platform kursus bahasa Inggris dengan sistem manajemen pendaftaran dan informasi program terpadu.",
+      "en": "English course platform with an integrated registration management and program information system."
+    }
+  },
+  {
+    "title": "PRAMENU Digital",
+    "image": "projects/images/pramenu.png",
+    "link": "https://pramenu.my.id",
+    "accent": "violet",
+    "tags": ["F&B", "QR Menu"],
+    "desc": {
+      "id": "Aplikasi menu digital cerdas untuk kafe dan restoran dengan fitur pemesanan interaktif via QR Code.",
+      "en": "Smart digital menu application for cafes and restaurants featuring interactive QR Code ordering."
+    }
+  },
+  {
+    "title": "PraCBT Platform",
+    "image": "projects/images/pracbt.png",
+    "link": "https://pracbt.vercel.app/",
+    "accent": "cyan",
+    "tags": ["EdTech", "CBT"],
+    "desc": {
+      "id": "Platform ujian online (Computer Based Test) modern dengan fitur pengawasan dan analitik nilai real-time.",
+      "en": "Modern Computer Based Test (CBT) platform with real-time proctoring and grade analytics features."
+    }
+  }
+]
