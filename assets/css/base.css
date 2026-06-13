@@ -70,3 +70,34 @@ body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgb
 
 /* --- THEME OVERLAY --- */
 .theme-transition-overlay { position: fixed; border-radius: 50%; pointer-events: none; transform: scale(0); }
+
+/* --- SKIP TO CONTENT --- */
+.skip-link {
+    position: fixed; top: 0; left: 50%;
+    transform: translate(-50%, -120%);
+    z-index: 10002; padding: 0.6rem 1.2rem; border-radius: 0 0 0.6rem 0.6rem;
+    background: var(--accent-color); color: #fff; font-size: 0.85rem; font-weight: 600;
+    text-decoration: none; transition: transform 0.2s ease;
+}
+.skip-link:focus { transform: translate(-50%, 0); outline: none; }
+
+/* --- KEYBOARD FOCUS VISIBILITY --- */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible, .form-input:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+/* Suppress outline for mouse users (focus without keyboard) */
+:focus:not(:focus-visible) { outline: none; }
+
+/* --- REDUCED MOTION --- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .marquee-track { animation: none !important; }
+    .skill-bar-fill { transition: none !important; }
+}

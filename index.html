@@ -63,6 +63,9 @@
 
 <body class="min-h-screen flex flex-col relative selection:bg-blue-500 selection:text-white" data-theme="dark">
 
+    <!-- Skip to content -->
+    <a href="#about" class="skip-link">Lewati ke konten</a>
+
     <!-- Scroll Progress -->
     <div id="scroll-progress-bar"></div>
 
@@ -70,8 +73,8 @@
     <div class="grain-overlay"></div>
 
     <!-- Back To Top -->
-    <button id="back-to-top" class="hover-trigger" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <i data-lucide="arrow-up" class="w-4 h-4 text-muted"></i>
+    <button id="back-to-top" class="hover-trigger" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i data-lucide="arrow-up" class="w-4 h-4 text-muted" aria-hidden="true"></i>
     </button>
 
     <!-- 3D Background Canvas -->
@@ -119,13 +122,13 @@
                 </div>
 
                 <div class="flex items-center gap-2 pl-2 md:pl-4 md:border-l border-theme relative">
-                    <button id="lang-toggle"
+                    <button id="lang-toggle" aria-label="Ganti bahasa"
                         class="text-xs font-bold px-2 py-1 rounded hover:bg-gray-500/10 text-muted hover:text-blue-400 transition-colors hover-trigger">EN</button>
 
                     <!-- THEME TOGGLE (Cyclical) -->
-                    <button id="theme-toggle"
+                    <button id="theme-toggle" aria-label="Ganti tema"
                         class="p-2 rounded-full hover:bg-gray-500/10 text-muted hover:text-yellow-400 transition-colors hover-trigger overflow-hidden relative">
-                        <div class="theme-icon-wrapper relative w-5 h-5">
+                        <div class="theme-icon-wrapper relative w-5 h-5" aria-hidden="true">
                             <i data-lucide="moon"
                                 class="w-5 h-5 absolute inset-0 transition-all duration-500 scale-0 opacity-0"
                                 data-icon="dark"></i>
@@ -144,10 +147,10 @@
                     <a href="#contact"
                         class="hidden md:inline-block px-4 py-2 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-all hover-trigger ml-2 text-sm"
                         data-i18n="nav_contact">Hubungi Saya</a>
-                    <button id="mobile-menu-btn"
+                    <button id="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false" aria-controls="mobile-menu"
                         class="md:hidden p-2 text-muted hover:text-main transition-colors hover-trigger ml-1">
-                        <i data-lucide="menu" class="w-6 h-6 menu-icon-open"></i>
-                        <i data-lucide="x" class="w-6 h-6 menu-icon-close hidden"></i>
+                        <i data-lucide="menu" class="w-6 h-6 menu-icon-open" aria-hidden="true"></i>
+                        <i data-lucide="x" class="w-6 h-6 menu-icon-close hidden" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>

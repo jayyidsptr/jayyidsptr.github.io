@@ -8,6 +8,9 @@ window.APP = {
     material: null,
     scene: null,
 
+    // Respect user's motion preference (OS-level "reduce motion")
+    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+
     // Cursor trail particle color (set by theme.js)
     currentParticleColor: '255, 255, 255',
 

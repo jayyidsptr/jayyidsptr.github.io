@@ -7,19 +7,23 @@
     const twEl = document.querySelector('.stagger-text.tw-cursor');
     if (twEl) {
         const words = ['Full Stack Dev', 'React Developer', 'Laravel Expert', 'Code Mentor'];
-        let wi = 0, ci = 0, deleting = false;
-        function typeWriter() {
-            const word = words[wi];
-            twEl.textContent = deleting ? word.substring(0, ci--) : word.substring(0, ci++);
-            if (!deleting && ci > word.length) { 
-                deleting = true; setTimeout(typeWriter, 1800); return; 
+        if (APP.reducedMotion) {
+            twEl.textContent = words[0];
+        } else {
+            let wi = 0, ci = 0, deleting = false;
+            function typeWriter() {
+                const word = words[wi];
+                twEl.textContent = deleting ? word.substring(0, ci--) : word.substring(0, ci++);
+                if (!deleting && ci > word.length) {
+                    deleting = true; setTimeout(typeWriter, 1800); return;
+                }
+                if (deleting && ci < 0) {
+                    deleting = false; wi = (wi + 1) % words.length;
+                }
+                setTimeout(typeWriter, deleting ? 60 : 120);
             }
-            if (deleting && ci < 0) { 
-                deleting = false; wi = (wi + 1) % words.length; 
-            }
-            setTimeout(typeWriter, deleting ? 60 : 120);
+            setTimeout(typeWriter, 1500);
         }
-        setTimeout(typeWriter, 1500);
     }
 
     // --- 3D TILT EFFECT ---

@@ -10,8 +10,20 @@ window.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('copyright-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    const reduced = APP.reducedMotion;
+
+    // Reveal helper for reduced-motion: show elements instantly (they start at opacity:0)
+    const revealNow = (selector) => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.style.opacity = 1;
+            el.style.transform = 'none';
+        });
+    };
+
     // 2. Initial Page Entrance Animations
-    if (typeof anime !== 'undefined') {
+    if (reduced) {
+        revealNow('.stagger-text, .ide-container, .code-line');
+    } else if (typeof anime !== 'undefined') {
         const tl = anime.timeline({ easing: 'easeOutExpo', duration: 1000 });
         tl.add({ targets: '.stagger-text', translateY: [30, 0], opacity: [0, 1], delay: anime.stagger(100) })
           .add({ targets: '.ide-container', scale: [0.95, 1], opacity: [0, 1], duration: 800 }, '-=600')
@@ -22,30 +34,34 @@ window.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-            
+
             const t = entry.target;
 
             // Tech Stack grid
-            if (t.classList.contains('tech-stack-container') && typeof anime !== 'undefined') {
-                anime({ targets: '.tech-item', translateY: [20, 0], opacity: [0.7, 1], delay: anime.stagger(50), easing: 'spring(1, 80, 10, 0)' });
+            if (t.classList.contains('tech-stack-container')) {
+                if (reduced) revealNow('.tech-item');
+                else if (typeof anime !== 'undefined') anime({ targets: '.tech-item', translateY: [20, 0], opacity: [0.7, 1], delay: anime.stagger(50), easing: 'spring(1, 80, 10, 0)' });
                 observer.unobserve(t);
             }
-            
+
             // Projects
             if (t.id === 'projects' || t.classList.contains('project-grid')) {
-                if (typeof anime !== 'undefined') anime({ targets: '.project-grid .glass-card', translateY: [50, 0], opacity: [0, 1], delay: anime.stagger(150), easing: 'easeOutCubic' });
+                if (reduced) revealNow('.project-grid .glass-card');
+                else if (typeof anime !== 'undefined') anime({ targets: '.project-grid .glass-card', translateY: [50, 0], opacity: [0, 1], delay: anime.stagger(150), easing: 'easeOutCubic' });
                 observer.unobserve(t);
             }
 
             // Experience
             if (t.id === 'experience') {
-                if (typeof anime !== 'undefined') anime({ targets: '.experience-timeline > div', translateX: [50, 0], opacity: [0, 1], delay: anime.stagger(200), easing: 'easeOutExpo', duration: 1000 });
+                if (reduced) revealNow('.experience-timeline > div');
+                else if (typeof anime !== 'undefined') anime({ targets: '.experience-timeline > div', translateX: [50, 0], opacity: [0, 1], delay: anime.stagger(200), easing: 'easeOutExpo', duration: 1000 });
                 observer.unobserve(t);
             }
 
             // Mentoring
             if (t.id === 'mentoring') {
-                if (typeof anime !== 'undefined') {
+                if (reduced) revealNow('.mentoring-content, .mentoring-card');
+                else if (typeof anime !== 'undefined') {
                     anime({ targets: '.mentoring-content', translateY: [30, 0], opacity: [0, 1], easing: 'easeOutExpo', duration: 1000 });
                     anime({ targets: '.mentoring-card', translateX: [30, 0], opacity: [0, 1], easing: 'easeOutExpo', duration: 1000, delay: 200 });
                 }
@@ -54,7 +70,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // Contact
             if (t.id === 'contact') {
-                if (typeof anime !== 'undefined') anime({ targets: '.contact-card', translateY: [50, 0], opacity: [0, 1], easing: 'easeOutExpo', duration: 1000 });
+                if (reduced) revealNow('.contact-card');
+                else if (typeof anime !== 'undefined') anime({ targets: '.contact-card', translateY: [50, 0], opacity: [0, 1], easing: 'easeOutExpo', duration: 1000 });
                 observer.unobserve(t);
             }
         });
@@ -87,10 +104,14 @@ window.addEventListener('DOMContentLoaded', () => {
             const isOpen = mobileMenu.classList.contains('open');
             if (isOpen) {
                 mobileMenu.classList.remove('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.setAttribute('aria-label', 'Buka menu');
                 if(menuIconOpen) menuIconOpen.classList.remove('hidden');
                 if(menuIconClose) menuIconClose.classList.add('hidden');
             } else {
                 mobileMenu.classList.add('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'true');
+                mobileMenuBtn.setAttribute('aria-label', 'Tutup menu');
                 if(menuIconOpen) menuIconOpen.classList.add('hidden');
                 if(menuIconClose) menuIconClose.classList.remove('hidden');
             }
@@ -99,6 +120,8 @@ window.addEventListener('DOMContentLoaded', () => {
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                mobileMenuBtn.setAttribute('aria-label', 'Buka menu');
                 if(menuIconOpen) menuIconOpen.classList.remove('hidden');
                 if(menuIconClose) menuIconClose.classList.add('hidden');
             });

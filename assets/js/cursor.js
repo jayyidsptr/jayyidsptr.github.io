@@ -69,7 +69,7 @@
         }
 
         for (let i = 0; i < 2; i++) {
-            particles.push(new TrailParticle(posX, posY));
+            if (!APP.reducedMotion) particles.push(new TrailParticle(posX, posY));
         }
     });
 

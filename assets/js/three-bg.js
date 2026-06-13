@@ -91,7 +91,13 @@
         renderer.render(scene, camera);
         requestAnimationFrame(animateShapes);
     }
-    animateShapes();
+
+    if (APP.reducedMotion) {
+        // Static render: draw the scene once, no continuous motion
+        renderer.render(scene, camera);
+    } else {
+        animateShapes();
+    }
 
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
