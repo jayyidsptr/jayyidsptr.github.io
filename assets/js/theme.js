@@ -13,51 +13,57 @@
 
     // Apply saved theme on load
     const validTheme = themes.includes(APP.currentTheme) ? APP.currentTheme : 'dark';
-    APP.currentTheme = validTheme;
-    body.setAttribute('data-theme', validTheme);
-    updateThemeIcon(validTheme);
-    update3DColors(validTheme);
-    updateParticleColor(validTheme);
+    applyTheme(validTheme);
+
+    if (!themeToggleBtn) return;
 
     // Theme cycle on click
     themeToggleBtn.addEventListener('click', () => {
         const next = themes[(themes.indexOf(APP.currentTheme) + 1) % themes.length];
 
-        const rect    = themeToggleBtn.getBoundingClientRect();
-        const cx      = rect.left + rect.width / 2;
-        const cy      = rect.top  + rect.height / 2;
-        const maxDist = Math.max(
-            Math.hypot(cx, cy),
-            Math.hypot(window.innerWidth - cx, cy),
-            Math.hypot(cx, window.innerHeight - cy),
-            Math.hypot(window.innerWidth - cx, window.innerHeight - cy)
-        );
-
-        overlay.style.width           = `${maxDist * 2}px`;
-        overlay.style.height          = `${maxDist * 2}px`;
-        overlay.style.left            = `${cx - maxDist}px`;
-        overlay.style.top             = `${cy - maxDist}px`;
-        overlay.style.backgroundColor = themeColors[next];
-
         const iconWrapper = themeToggleBtn.querySelector('.theme-icon-wrapper');
-        if (typeof anime !== 'undefined') {
+
+        // Animated transition when anime.js is available; otherwise apply instantly.
+        if (typeof anime !== 'undefined' && overlay) {
+            const rect    = themeToggleBtn.getBoundingClientRect();
+            const cx      = rect.left + rect.width / 2;
+            const cy      = rect.top  + rect.height / 2;
+            const maxDist = Math.max(
+                Math.hypot(cx, cy),
+                Math.hypot(window.innerWidth - cx, cy),
+                Math.hypot(cx, window.innerHeight - cy),
+                Math.hypot(window.innerWidth - cx, window.innerHeight - cy)
+            );
+
+            overlay.style.width           = `${maxDist * 2}px`;
+            overlay.style.height          = `${maxDist * 2}px`;
+            overlay.style.left            = `${cx - maxDist}px`;
+            overlay.style.top             = `${cy - maxDist}px`;
+            overlay.style.backgroundColor = themeColors[next];
+
             anime({ targets: iconWrapper, rotate: '+=360deg', duration: 500, easing: 'easeInOutQuad' });
             anime({
                 targets: overlay, scale: [0, 1], easing: 'easeInQuad', duration: 400,
                 complete: () => {
-                    APP.currentTheme = next;
-                    body.setAttribute('data-theme', next);
-                    localStorage.setItem('theme', next);
-                    updateThemeIcon(next);
-                    update3DColors(next);
-                    updateParticleColor(next);
+                    applyTheme(next);
                     overlay.style.opacity   = 0;
                     overlay.style.transform = 'scale(0)';
                     setTimeout(() => { overlay.style.opacity = 1; }, 50);
                 }
             });
+        } else {
+            applyTheme(next);
         }
     });
+
+    function applyTheme(theme) {
+        APP.currentTheme = theme;
+        body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        updateThemeIcon(theme);
+        update3DColors(theme);
+        updateParticleColor(theme);
+    }
 
     function updateThemeIcon(theme) {
         document.querySelectorAll('[data-icon]').forEach(el => el.classList.add('scale-0', 'opacity-0'));

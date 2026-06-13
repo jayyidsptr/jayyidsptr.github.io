@@ -6,6 +6,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // 1. Init Icons
     if (window.lucide) lucide.createIcons();
 
+    // Auto-update copyright year
+    const yearEl = document.getElementById('copyright-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
     // 2. Initial Page Entrance Animations
     if (typeof anime !== 'undefined') {
         const tl = anime.timeline({ easing: 'easeOutExpo', duration: 1000 });

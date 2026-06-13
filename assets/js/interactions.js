@@ -38,21 +38,44 @@
         });
     });
 
-    // --- CONTACT FORM HANDLER ---
-    window.handleFormSubmit = function(e) {
+    // --- CONTACT FORM HANDLER (Web3Forms) ---
+    window.handleFormSubmit = async function(e) {
         e.preventDefault();
-        const btn = e.target.querySelector('button[type="submit"]');
-        btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> <span>Mengirim...</span>';
-        btn.disabled = true;
-        if(window.lucide) lucide.createIcons();
-        
-        setTimeout(() => {
-            document.getElementById('form-success').classList.remove('hidden');
-            e.target.reset();
-            btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> <span>Kirim Pesan</span>';
-            btn.disabled = false;
-            if(window.lucide) lucide.createIcons();
-        }, 1500);
+        const form    = e.target;
+        const btn     = form.querySelector('button[type="submit"]');
+        const success = document.getElementById('form-success');
+        const error   = document.getElementById('form-error');
+
+        success?.classList.add('hidden');
+        error?.classList.add('hidden');
+
+        const original = btn.innerHTML;
+        btn.innerHTML  = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> <span>Mengirim...</span>';
+        btn.disabled   = true;
+        if (window.lucide) lucide.createIcons();
+
+        try {
+            const res = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: new FormData(form),
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                form.reset();
+                success?.classList.remove('hidden');
+                setTimeout(() => success?.classList.add('hidden'), 6000);
+            } else {
+                throw new Error(data.message || 'Request failed');
+            }
+        } catch (err) {
+            error?.classList.remove('hidden');
+        } finally {
+            btn.innerHTML = original;
+            btn.disabled  = false;
+            if (window.lucide) lucide.createIcons();
+        }
     };
 
     // --- SCROLL PROGRESS & BACK-TO-TOP ---
